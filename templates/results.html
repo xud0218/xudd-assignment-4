@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        .result-section {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .result-header {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        .result-score {
+            font-style: italic;
+            color: #555;
+        }
+        .back-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results for: "{{ query }}"</h1>
+
+    <!-- Check if there are documents to display -->
+    {% if docs %}
+        <!-- Loop through each document and its score -->
+        {% for doc, score in docs %}
+        <div class="result-section">
+            <div class="result-header">Document {{ loop.index }}:</div>
+            <div class="result-score">Cosine Similarity: {{ score }}</div>
+            <div class="result-content">{{ doc }}</div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No documents found.</p>
+    {% endif %}
+
+    <!-- Display the cosine similarity bar chart -->
+    <h2>Cosine Similarity Chart</h2>
+    <img src="data:image/png;base64,{{ plot_url }}" alt="Cosine Similarity Chart">
+    
+    <div class="back-link">
+        <a href="/">Back to search</a>
+    </div>
+</body>
+</html>
